@@ -2,6 +2,7 @@ package br.com.branquinho.jpa.produto.model;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,4 +37,20 @@ public class Produto {
         this.preco = preco;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Produto)) {
+            return false;
+        }
+        Produto produto = (Produto) o;
+        return Objects.equals(getCodigo(), produto.getCodigo());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCodigo());
+    }
 }
