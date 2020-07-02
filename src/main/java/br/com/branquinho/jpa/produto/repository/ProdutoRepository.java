@@ -2,6 +2,8 @@ package br.com.branquinho.jpa.produto.repository;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -17,4 +19,7 @@ public class ProdutoRepository {
         entityManager.persist(produto);
     }
 
+    public Optional<Produto> findById(Long codigo) {
+        return Optional.ofNullable(entityManager.find(Produto.class, codigo));
+    }
 }

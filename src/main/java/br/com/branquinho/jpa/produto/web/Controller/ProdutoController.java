@@ -15,7 +15,7 @@ import br.com.branquinho.jpa.produto.casosDeUso.cadastro.dtos.ProdutoTO;
 import br.com.branquinho.jpa.produto.model.Produto;
 
 @RestController
-@RequestMapping("/produto/api")
+@RequestMapping("/api/produto")
 public class ProdutoController {
 
     private final NovoProduto novoProduto;

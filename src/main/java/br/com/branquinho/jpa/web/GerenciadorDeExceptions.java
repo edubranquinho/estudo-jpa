@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @ControllerAdvice
 public class GerenciadorDeExceptions {
@@ -25,6 +28,13 @@ public class GerenciadorDeExceptions {
             .collect(Collectors.joining(";"));
 
         return new ErroView(erros);
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(RuntimeException.class)
+    public ErroView runtimeException(RuntimeException ex) {
+        log.info(ex.getMessage(), ex);
+        return new ErroView(ex.getMessage());
     }
 
     class ErroView {

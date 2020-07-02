@@ -1,5 +1,6 @@
 package br.com.branquinho.jpa.venda.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -11,11 +12,18 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import br.com.branquinho.jpa.produto.model.Produto;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter
+@Getter
 @Entity
 public class Venda {
 
@@ -26,7 +34,9 @@ public class Venda {
     @ManyToOne
     private Produto produto;
 
-    private LocalDateTime data = LocalDateTime.now();
+    private BigDecimal valor;
+
+    private LocalDateTime data;
     
     @Enumerated(EnumType.STRING)
     private FormaPagamento formaPagamento;
