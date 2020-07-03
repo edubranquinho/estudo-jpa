@@ -17,6 +17,7 @@ import br.com.branquinho.jpa.produto.casosDeUso.cadastro.NovoProduto;
 import br.com.branquinho.jpa.produto.casosDeUso.cadastro.dtos.ProdutoForm;
 import br.com.branquinho.jpa.produto.casosDeUso.cadastro.dtos.ProdutoTO;
 import br.com.branquinho.jpa.produto.model.Produto;
+import br.com.branquinho.jpa.produto.model.filter.ProdutoFilter;
 import br.com.branquinho.jpa.produto.repository.ProdutoRepository;
 
 @RestController
@@ -39,8 +40,8 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public List<ProdutoTO> listarProdutos() {
-        final List<Produto> produtos = produtoRepository.listarProdutos();
+    public List<ProdutoTO> listarProdutos(@RequestBody ProdutoFilter filtro) {
+        final List<Produto> produtos = produtoRepository.listarProdutos(filtro);
         return produtos
             .stream()
             .map(ProdutoTO::new)

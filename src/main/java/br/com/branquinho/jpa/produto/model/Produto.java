@@ -1,5 +1,8 @@
 package br.com.branquinho.jpa.produto.model;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +30,7 @@ public class Produto {
     private BigDecimal preco;
 
     @ManyToMany
+    @Cascade({CascadeType.PERSIST, CascadeType.PERSIST})
     private List<Categoria> categorias;
 
     @Deprecated //Somente para uso de Frameworks

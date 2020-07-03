@@ -9,8 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import br.com.branquinho.jpa.produto.model.Categoria;
 import br.com.branquinho.jpa.produto.model.Produto;
+import br.com.branquinho.jpa.produto.model.filter.ProdutoFilter;
 
 @Repository
 public class ProdutoRepository {
@@ -26,20 +26,21 @@ public class ProdutoRepository {
         return Optional.ofNullable(entityManager.find(Produto.class, codigo));
     }
 
-    public List<Produto> listarProdutos() {
-        String jpql = "select p from Produto p order by p.preco desc ";
+    public List<Produto> listarProdutos(ProdutoFilter filtro) {
+        StringBuilder jpql = new StringBuilder("select p from Produto p ");
 
-        final TypedQuery<Produto> query = entityManager.createQuery(jpql, Produto.class);
-        return query.getResultList();
-    }
+        if (filtro.getCategoria() != null) {
+            jpql.append(" join fetch p.categorias c ");
+            jpql.append(" where lower(c.nome) like :pNome ");
+        }
 
-    public List<Produto> listarProdutos(Categoria categoria) {
-        StringBuilder sql = new StringBuilder("select p from Produto p join p.categorias  c ");
-        sql.append(" where c = :categoria ");
+        jpql.append("order by p.preco desc ");
 
-        final TypedQuery<Produto> query = entityManager.createQuery(sql.toString(), Produto.class);
-        query.setParameter("categoria", categoria);
+        final TypedQuery<Produto> query = entityManager.createQuery(jpql.toString(), Produto.class);
 
+        if (filtro.getCategoria() != null) {
+            query.setParameter("pNome", "%" + filtro.getCategoria().toLowerCase() + "%");
+        }
 
         return query.getResultList();
     }

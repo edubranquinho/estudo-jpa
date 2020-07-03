@@ -14,4 +14,11 @@ public class Categoria {
     @Id
     private String nome;
 
+    @Deprecated //somente para uso de Framework
+    public Categoria() {}
+
+    public Categoria(String descricao) {
+        nome = descricao;
+    }
+
 }
