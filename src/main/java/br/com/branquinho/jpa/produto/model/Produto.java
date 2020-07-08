@@ -30,7 +30,7 @@ public class Produto {
     private BigDecimal preco;
 
     @ManyToMany
-    @Cascade({CascadeType.PERSIST, CascadeType.PERSIST})
+    @Cascade({CascadeType.PERSIST, CascadeType.MERGE})
     private List<Categoria> categorias;
 
     @Deprecated //Somente para uso de Frameworks

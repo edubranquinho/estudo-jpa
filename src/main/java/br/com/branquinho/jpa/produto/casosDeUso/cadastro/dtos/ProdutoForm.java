@@ -18,10 +18,10 @@ import static java.math.BigDecimal.valueOf;
 @Setter
 public class ProdutoForm {
 
-    @NotBlank(message = "Por favor informe a descrição do produto")
+    @NotBlank
     private String descricao;
-    @DecimalMin(value = "0.01", message = "O preço mínimo é 0.01")
-    @NotNull(message = "Por favor informe o preço do produto")
+    @DecimalMin(value = "0.01")
+    @NotNull
     private Double preco;
     private List<String> categorias;
 
